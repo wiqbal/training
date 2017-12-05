@@ -1,0 +1,78 @@
+package exercises;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class TestSample {
+
+	public static void main(String[] args) {
+		
+System.setProperty("webdriver.chrome.driver","C:\\chromedriver_win32\\chromedriver.exe");
+		
+		//Exercise 2
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://the-internet.herokuapp.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.linkText("Checkboxes")).click();
+		
+		//Exercise 3.1
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//*[@id='checkboxes']/input[1]")).click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("//*[@id='checkboxes']/input[2]")).click();
+		driver.navigate().back();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		//Exercise 3.2
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[17]/a")).click();
+		driver.findElement(By.xpath("//*[@id='email']")).sendKeys("test@test.com");
+		driver.findElement(By.xpath("//*[@id='form_submit']/i")).click();
+		String message1 = driver.findElement(By.xpath("//*[@id='content']")).getText();
+		System.out.println("The message displayed is: "+ message1);
+		driver.navigate().back(); 
+		driver.navigate().back(); 
+		
+		
+		//Exercise 3.3
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[9]/a")).click();
+		Select option = new Select(driver.findElement(By.id("dropdown")));
+		option.selectByIndex(1);
+		driver.navigate().back(); 
+		
+		//Exercise 4.1
+		
+		//Exercise 5.2
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[22]/a")).click();
+		WebElement element = driver.findElement(By.xpath("//*[@id='content']/div/div[1]/img"));	
+		Actions action = new Actions(driver);
+		action.moveToElement(element).build().perform();
+		driver.findElement(By.xpath("//*[@id='content']/div/div[1]/div/a")).click();
+		String message2 = driver.findElement(By.xpath("/html/body/h1")).getText();
+		System.out.println("The View profile clicked and displayed: " + message2);
+		driver.navigate().back(); 
+		driver.navigate().back(); 
+		
+		//Exercise 5.3
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[12]/a")).click();
+		driver.findElement(By.xpath("//*[@id='content']/div/a[1]")).click();
+		driver.findElement(By.xpath("//*[@id='start']/button")).click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		if(driver.findElement(By.xpath("//*[@id='finish']/h4")) != null){
+			System.out.println("Hello World IS Printed");
+		}else System.out.println("Hello World is NOT printed");
+		driver.navigate().to("https://the-internet.herokuapp.com");
+		
+		
+		
+		
+		
+	}
+	
+
+}
