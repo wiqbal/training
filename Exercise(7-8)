@@ -1,0 +1,37 @@
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class TestSample7 {
+
+	public static void main(String[] args) {
+		
+
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://the-internet.herokuapp.com/");
+		driver.manage().window().maximize();
+		
+		//Exercise 7
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[9]/a")).click();
+		Select option = new Select(driver.findElement(By.id("dropdown")));
+		option.selectByVisibleText("Option 1");
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		//String testString = "ption 1";
+		//String Present = driver.findElement(By.xpath("//*[@id='dropdown']/option[2]")).getText();
+		driver.navigate().back(); 
+		
+		//Exercise 8
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[19]/a")).click();
+		driver.findElement(By.xpath("//*[@id='content']/div/ul/li[2]/a")).click();;
+		driver.findElement(By.xpath("//*[@id='mceu_15-open']/span")).click();
+		driver.findElement(By.id("mceu_32-text")).click();
+		driver.findElement(By.xpath("//*[@id='mce_0_ifr']")).sendKeys("This is a Selenium test");
+		System.out.println("The script typed in the iFrame Text Area");
+		driver.navigate().back(); 
+		driver.navigate().back(); 
+	}
+}
