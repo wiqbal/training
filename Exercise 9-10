@@ -1,0 +1,38 @@
+package exercises;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TestSample9 {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://the-internet.herokuapp.com/");
+		driver.manage().window().maximize();
+		
+		//Exercise 9	
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[25]/a")).click();
+		driver.findElement(By.xpath("//*[@id='content']/div/ul/li[1]/button")).click();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.switchTo().alert().accept();
+		String confMessage = driver.findElement(By.xpath("//*[@id='result']")).getText();	
+		Assert.assertEquals(confMessage, "You successfuly clicked an alert");	
+		System.out.println(confMessage);
+		driver.navigate().back();
+			
+		//Exercise 10
+		driver.findElement(By.xpath("//*[@id='content']/ul/li[11]/a")).click();
+        driver.findElement(By.id("checkbox")).click();
+		driver.findElement(By.id("btn")).click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		String confMessage2 = driver.findElement(By.id("message")).getText();
+		System.out.println("The message displayed is: " + confMessage2);
+	}
+
+}
